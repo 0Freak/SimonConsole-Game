@@ -27,15 +27,16 @@ namespace SimonSaysConsole
             //Debugging Info
             foreach (var color in Colors.ColorSequence)
             {
-                Console.Write(" CC {0}", color);
+                Console.Write(" CC {0}", color); //CC = Computers Colors
             }
             Console.WriteLine();
             foreach (var number in PlayerColors)
             {
-                Console.Write(" PC {0}", number);
+                Console.Write(" PC {0}", number); //PC = Players Colors
             }
 
             Console.WriteLine();
+            Console.WriteLine("Press a key to continue...");
             Console.ReadKey();
             return CheckAnswer();
         }
@@ -86,7 +87,7 @@ namespace SimonSaysConsole
             }
         }
 
-        public bool CheckAnswer() //True if user answer is correct to generated pattern and levelup otherwise returns false and do nothing
+        public bool CheckAnswer() //True if user answer is correct to generated pattern otherwise returns false and goto a gameover screen
         {
 
             for (int colorIndex = 0; colorIndex < Colors.ColorSequence.Count; colorIndex++)
@@ -98,21 +99,19 @@ namespace SimonSaysConsole
                 {
                     Console.WriteLine("You picked {0}", PlayerColors[colorIndex]);
                     Console.WriteLine("Computer picked color {0}", Colors.ColorSequence[colorIndex]);
-                    Console.WriteLine("Wrong");
                     return false;
                 }
                 else
                 {
                     Console.WriteLine("You picked {0}", PlayerColors[colorIndex]);
                     Console.WriteLine("Computer picked color {0}", Colors.ColorSequence[colorIndex]);
-                    Console.WriteLine("Correct");
                     continue;
                 }
             }
             return true;
         }
 
-        public void ClearAnswers()
+        public void ClearAnswers() //Remove all user answers from the list
         {
             for (int i = 0; i <= PlayerColors.Count; i++)
             {

@@ -87,5 +87,6 @@ namespace SimonSaysConsole
                 Console.Clear();
             }
         }
+
     }
 }

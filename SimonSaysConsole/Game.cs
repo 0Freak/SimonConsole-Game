@@ -60,7 +60,7 @@ namespace SimonSaysConsole
             }
             else
             {
-                Console.ReadKey();
+                Lose();
             }
         }
 
@@ -80,7 +80,10 @@ namespace SimonSaysConsole
         public void Lose()
         {
             Console.WriteLine("Game Lost");
-            throw new NotImplementedException();
+            Console.WriteLine("Press any button to play again...");
+            Console.ReadKey();
+            Console.Clear();
+            GameOpen();
         }
 
         public void Win()
