@@ -27,12 +27,12 @@ namespace SimonSaysConsole
             //Debugging Info
             foreach (var color in Colors.ColorSequence)
             {
-                Console.Write(" CC {0}", color); //CC = Computers Colors
+                Console.Write($" CC {color}"); //CC = Computers Colors
             }
             Console.WriteLine();
-            foreach (var number in PlayerColors)
+            foreach (var playerColor in PlayerColors)
             {
-                Console.Write(" PC {0}", number); //PC = Players Colors
+                Console.Write($" PC {playerColor}"); //PC = Players Colors
             }
 
             Console.WriteLine();
@@ -97,26 +97,23 @@ namespace SimonSaysConsole
                 //get the pattern right.
                 if (!Colors.ColorSequence.Contains(PlayerColors[colorIndex]))
                 {
-                    Console.WriteLine("You picked {0}", PlayerColors[colorIndex]);
-                    Console.WriteLine("Computer picked color {0}", Colors.ColorSequence[colorIndex]);
+                    Console.WriteLine($"You picked {PlayerColors[colorIndex]}");
+                    Console.WriteLine($"Computer picked color {Colors.ColorSequence[colorIndex]}");
                     return false;
                 }
                 else
                 {
-                    Console.WriteLine("You picked {0}", PlayerColors[colorIndex]);
-                    Console.WriteLine("Computer picked color {0}", Colors.ColorSequence[colorIndex]);
+                    Console.WriteLine($"You picked {PlayerColors[colorIndex]}");
+                    Console.WriteLine($"Computer picked color {Colors.ColorSequence[colorIndex]}");
                     continue;
                 }
             }
             return true;
         }
 
-        public void ClearAnswers() //Remove all user answers from the list
+        public void ClearAnswers()
         {
-            for (int i = 0; i <= PlayerColors.Count; i++)
-            {
-                PlayerColors.Remove(i);
-            }
+            PlayerColors.Clear();
         }
 
         public void CallHelp()

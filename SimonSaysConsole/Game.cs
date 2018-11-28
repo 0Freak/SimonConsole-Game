@@ -7,11 +7,11 @@ namespace SimonSaysConsole
         Colors colors;
         Player player;
 
-        private readonly ConsoleKey StartGameKey = ConsoleKey.Enter;
-        private const int MaxRounds = 10;
+        private readonly ConsoleKey startGameKey = ConsoleKey.Enter;
+        private const int maxRounds = 10;
 
-        public int Round = 1;
-        public int ChoseAmountOfColorsForRound = 1;
+        public int currentRound = 1;
+        public int choseAmountOfColorsForRound = 1;
 
         public Game()
         {
@@ -31,7 +31,7 @@ namespace SimonSaysConsole
                 {
                     player.CallHelp();
                 }
-                else if (key == StartGameKey)
+                else if (key == startGameKey)
                 {
                     break;
                 }
@@ -49,13 +49,14 @@ namespace SimonSaysConsole
         public void StartGame()
         {
             Console.Clear();
-            colors.GetColors(ChoseAmountOfColorsForRound); //Start game with two colors and then add one color each round/level 
+            colors.GetColors(choseAmountOfColorsForRound); //Start game with two colors and then add one color each round/level 
             colors.ShowPickedColors();
             Console.ResetColor();
             Console.Clear();
 
             if (player.Input() == true)
             {
+                player.ClearAnswers();
                 NextRound();
             }
             else
@@ -66,12 +67,13 @@ namespace SimonSaysConsole
 
         private void NextRound()
         {
-            if (Round <= MaxRounds)
+            if (currentRound <= maxRounds)
             {
-                Round++;
+                currentRound++;
+                //ChoseAmountOfColorsForRound++;
                 StartGame();
             }
-            else if (Round > MaxRounds)
+            else if (currentRound > maxRounds)
             {
                 Win();
             }
@@ -88,7 +90,7 @@ namespace SimonSaysConsole
 
         public void Win()
         {
-            Console.WriteLine("Round {0} was won", Round);
+            Console.WriteLine($"Round {currentRound} was won");
             Console.ReadKey();
             player.ClearAnswers();
             StartGame();
