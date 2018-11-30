@@ -24,17 +24,6 @@ namespace SimonSaysConsole
                 StoreKeyInput(KeyPress());
             }
 
-            //Debugging Info
-            foreach (var color in Colors.ColorSequence)
-            {
-                Console.Write($" CC {color}"); //CC = Computers Colors
-            }
-            Console.WriteLine();
-            foreach (var playerColor in PlayerColors)
-            {
-                Console.Write($" PC {playerColor}"); //PC = Players Colors
-            }
-
             Console.WriteLine();
             Console.WriteLine("Press a key to continue...");
             Console.ReadKey();
@@ -89,23 +78,13 @@ namespace SimonSaysConsole
 
         public bool CheckAnswer() //True if user answer is correct to generated pattern otherwise returns false and goto a gameover screen
         {
-
             for (int colorIndex = 0; colorIndex < Colors.ColorSequence.Count; colorIndex++)
             {
-                //Check answers is looking for any Color number in the players colors
-                //In theory the Player can input the correct color numbers without having to 
-                //get the pattern right.
-                if (!Colors.ColorSequence.Contains(PlayerColors[colorIndex]))
+                //Check answers is looking for the computer colors to match the players colors. If they match return true otherwise false.
+
+                if (Colors.ColorSequence[colorIndex] != PlayerColors[colorIndex])
                 {
-                    Console.WriteLine($"You picked {PlayerColors[colorIndex]}");
-                    Console.WriteLine($"Computer picked color {Colors.ColorSequence[colorIndex]}");
                     return false;
-                }
-                else
-                {
-                    Console.WriteLine($"You picked {PlayerColors[colorIndex]}");
-                    Console.WriteLine($"Computer picked color {Colors.ColorSequence[colorIndex]}");
-                    continue;
                 }
             }
             return true;

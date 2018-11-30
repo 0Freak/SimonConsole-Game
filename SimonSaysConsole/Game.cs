@@ -49,13 +49,13 @@ namespace SimonSaysConsole
         public void StartGame()
         {
             Console.Clear();
-            colors.GetColors(choseAmountOfColorsForRound); //Start game with two colors and then add one color each round/level 
+            colors.GetColors(choseAmountOfColorsForRound);
             colors.ShowPickedColors();
             Console.ResetColor();
             Console.Clear();
 
-            if (player.Input() == true)
-            {
+            //Needs to be refactored for show that it is the checkanswer function that is being checked for a boolean value not the players input
+            if (player.Input() == true)            {
                 player.ClearAnswers();
                 NextRound();
             }
@@ -70,7 +70,6 @@ namespace SimonSaysConsole
             if (currentRound <= maxRounds)
             {
                 currentRound++;
-                //ChoseAmountOfColorsForRound++;
                 StartGame();
             }
             else if (currentRound > maxRounds)

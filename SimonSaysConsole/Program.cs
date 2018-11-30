@@ -10,7 +10,6 @@ namespace SimonSaysConsole
     {
         static void Main(string[] args)
         {
-
             Game game = new Game();
             game.GameOpen();            
         }

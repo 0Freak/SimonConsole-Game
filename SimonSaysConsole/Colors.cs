@@ -42,13 +42,7 @@ namespace SimonSaysConsole
         {
             foreach (var color in ColorSequence)
             {
-                //Allow a black screen in between each color
-                for (int j = 0; j < 100; j++)
-                {
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.Clear();
-                }
-
+                PauseScreen();
                 switch (color)
                 {
                     case 0:
@@ -74,6 +68,16 @@ namespace SimonSaysConsole
                     default:
                         break;
                 }
+            }
+        }
+
+        private void PauseScreen()
+        {
+            //Allow a black screen in between each color
+            for (int j = 0; j < 100; j++)
+            {
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.Clear();
             }
         }
 
