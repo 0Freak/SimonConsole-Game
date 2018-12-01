@@ -71,6 +71,11 @@ namespace SimonSaysConsole
             }
         }
 
+        public void ClearColors()
+        {
+            ColorSequence.Clear();
+        }
+
         private void PauseScreen()
         {
             //Allow a black screen in between each color

@@ -39,10 +39,8 @@ namespace SimonSaysConsole
                 {
                     Console.Write("\rWas the Enter key pressed?");
                 }
-            }
 
-            Console.WriteLine();
-            Console.WriteLine("\rEnter Key was pressed");
+            }
             StartGame();
         }
 
@@ -53,16 +51,8 @@ namespace SimonSaysConsole
             colors.ShowPickedColors();
             Console.ResetColor();
             Console.Clear();
-
-            //Needs to be refactored for show that it is the checkanswer function that is being checked for a boolean value not the players input
-            if (player.Input() == true)            {
-                player.ClearAnswers();
-                NextRound();
-            }
-            else
-            {
-                Lose();
-            }
+            player.GetInputAndDisplay();
+            CheckAnswers();            
         }
 
         private void NextRound()
@@ -72,9 +62,23 @@ namespace SimonSaysConsole
                 currentRound++;
                 StartGame();
             }
-            else if (currentRound > maxRounds)
+            else if (currentRound >= maxRounds)
             {
-                Win();
+                WonRound();
+            }
+        }
+
+        private void CheckAnswers()
+        {
+            if (player.CheckAnswer() == true)
+            {
+                player.ClearAnswers();
+                WonRound();
+                NextRound();
+            }
+            else
+            {
+                Lose();
             }
         }
 
@@ -84,15 +88,16 @@ namespace SimonSaysConsole
             Console.WriteLine("Press any button to play again...");
             Console.ReadKey();
             Console.Clear();
+            player.ClearAnswers();
+            colors.ClearColors();
             GameOpen();
         }
 
-        public void Win()
+        public void WonRound()
         {
-            Console.WriteLine($"Round {currentRound} was won");
+            Console.WriteLine($"\nRound {currentRound} was won");
+            Console.WriteLine("Press a key to go to the next round!");
             Console.ReadKey();
-            player.ClearAnswers();
-            StartGame();
         }
     }
 }

@@ -9,57 +9,22 @@ namespace SimonSaysConsole
     class Player
     {
 
-        public static List<int> PlayerColors;
+        public static List<int> playerColors;
+        private string colorPicked;
 
         public Player()
         {
-            PlayerColors = new List<int>();
+            playerColors = new List<int>();
         }
 
-        public bool Input()
+        public void GetInputAndDisplay()
         {
+            Console.WriteLine("Input the colours that were seen:\n");
             for (var index = 0; index < Colors.ColorSequence.Count; index++)
             {
-                Console.Write("Color {0}: ", index + 1);
+                Console.Write("Colour {0}: ", index + 1);
                 StoreKeyInput(KeyPress());
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("Press a key to continue...");
-            Console.ReadKey();
-            return CheckAnswer();
-        }
-
-        private int KeyPress()
-        {
-            var playerKeyInput = Console.ReadKey();
-
-            switch (playerKeyInput.Key)
-            {
-                case ConsoleKey.G:
-                    {
-                        Console.WriteLine("\rYou Picked GREEN");
-                        return 0;
-                    }
-                case ConsoleKey.R:
-                    {
-                        Console.WriteLine("\rYou Picked RED");
-                        return 1;
-                    }
-                case ConsoleKey.Y:
-                    {
-                        Console.WriteLine("\rYou Picked YELLOW");
-                        return 2;
-                    }
-                case ConsoleKey.B:
-                    {
-                        Console.WriteLine("\rYou Picked BLUE");
-                        return 3;
-                    }
-                default:
-                    {
-                        return 4;
-                    }
+                Console.Write($"\rColour {index + 1}: {colorPicked}\n");
             }
         }
 
@@ -72,7 +37,40 @@ namespace SimonSaysConsole
             }
             else
             {
-                PlayerColors.Add(playerPickedNumber);
+                playerColors.Add(playerPickedNumber);
+            }
+        }
+
+        private int KeyPress()
+        {
+            var playerKeyInput = Console.ReadKey();
+
+            switch (playerKeyInput.Key)
+            {
+                case ConsoleKey.G:
+                    {
+                        colorPicked = "GREEN";
+                        return 0;
+                    }
+                case ConsoleKey.R:
+                    {
+                        colorPicked = "RED";
+                        return 1;
+                    }
+                case ConsoleKey.Y:
+                    {
+                        colorPicked = "YELLOW";
+                        return 2;
+                    }
+                case ConsoleKey.B:
+                    {
+                        colorPicked = "BLUE";
+                        return 3;
+                    }
+                default:
+                    {
+                        return 4;
+                    }
             }
         }
 
@@ -82,7 +80,7 @@ namespace SimonSaysConsole
             {
                 //Check answers is looking for the computer colors to match the players colors. If they match return true otherwise false.
 
-                if (Colors.ColorSequence[colorIndex] != PlayerColors[colorIndex])
+                if (Colors.ColorSequence[colorIndex] != playerColors[colorIndex])
                 {
                     return false;
                 }
@@ -92,7 +90,7 @@ namespace SimonSaysConsole
 
         public void ClearAnswers()
         {
-            PlayerColors.Clear();
+            playerColors.Clear();
         }
 
         public void CallHelp()
