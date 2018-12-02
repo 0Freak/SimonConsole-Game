@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace SimonSaysConsole
 {
@@ -78,23 +78,17 @@ namespace SimonSaysConsole
 
         private void PauseScreen()
         {
-            //Allow a black screen in between each color
-            for (int j = 0; j < 100; j++)
-            {
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.Clear();
-            }
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Clear();
+            Thread.Sleep(750);
+
         }
 
         private void ShowColor(ConsoleColor color)
         {
-            int length = 200;
-
-            for (int i = 0; i < length; i++)
-            {
-                Console.BackgroundColor = color;
-                Console.Clear();
-            }
+            Console.BackgroundColor = color;
+            Console.Clear();
+            Thread.Sleep(1000);
         }
 
     }
