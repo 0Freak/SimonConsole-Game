@@ -6,6 +6,7 @@ namespace SimonSaysConsole
     {
         Colors colors;
         Player player;
+        ConsoleWindowSize windowSize;
 
         private readonly ConsoleKey startGameKey = ConsoleKey.Enter;
         private const int maxRounds = 10;
@@ -17,11 +18,13 @@ namespace SimonSaysConsole
         {
             colors = new Colors();
             player = new Player();
+            windowSize = new ConsoleWindowSize();
         }
         
 
         public void GameOpen()
         {
+            windowSize.SetConsoleWindowSizeToScreenSize();
             Console.WriteLine("Welcome to a game of Simon Says! Please Press the Enter Key to start or H for help.");
             
             while (true)
@@ -84,13 +87,35 @@ namespace SimonSaysConsole
 
         public void Lose()
         {
-            Console.WriteLine("Game Lost");
-            Console.WriteLine("Press any button to play again...");
+            Console.WriteLine("\nGame Lost\n");
+            ShowResults();
+            Console.WriteLine("\nPress any button to play again...");
             Console.ReadKey();
             Console.Clear();
             player.ClearAnswers();
             colors.ClearColors();
             GameOpen();
+        }
+
+        public void ShowResults()
+        {
+            Console.WriteLine("Legend:");
+            Console.WriteLine("Green = 0; Red = 1; Yellow = 2; Blue = 3\n");
+            Console.WriteLine("Actual Answers | Your Answers");
+            for (int i = 0; i < Colors.ColorSequence.Count; i++)
+            {
+                if (Colors.ColorSequence[i] != Player.playerColors[i])
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine($"Color {i + 1}: {Colors.ColorSequence[i]}     | Color {i + 1}: {Player.playerColors[i]} ");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine($"Color {i + 1}: {Colors.ColorSequence[i]}     | Color {i + 1}: {Player.playerColors[i]} ");
+                }
+            }
         }
 
         public void WonRound()

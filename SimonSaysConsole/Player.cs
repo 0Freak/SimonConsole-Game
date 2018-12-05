@@ -79,7 +79,6 @@ namespace SimonSaysConsole
             for (int colorIndex = 0; colorIndex < Colors.ColorSequence.Count; colorIndex++)
             {
                 //Check answers is looking for the computer colors to match the players colors. If they match return true otherwise false.
-
                 if (Colors.ColorSequence[colorIndex] != playerColors[colorIndex])
                 {
                     return false;
