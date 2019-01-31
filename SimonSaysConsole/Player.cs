@@ -8,7 +8,6 @@ namespace SimonSaysConsole
 {
     class Player
     {
-
         public static List<int> playerColors;
         private string colorPicked;
 

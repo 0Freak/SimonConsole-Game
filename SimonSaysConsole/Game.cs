@@ -8,9 +8,10 @@ namespace SimonSaysConsole
         Player player;
         ConsoleWindowSize windowSize;
 
-        private readonly ConsoleKey startGameKey = ConsoleKey.Enter;
-        private const int maxRounds = 10;
+        private readonly ConsoleKey startGameKey = ConsoleKey.F5;
+        private int maxRounds = 1;
 
+        public static string difficulty = "EASY";
         public int currentRound = 1;
         public int choseAmountOfColorsForRound = 1;
 
@@ -20,13 +21,13 @@ namespace SimonSaysConsole
             player = new Player();
             windowSize = new ConsoleWindowSize();
         }
-        
+
 
         public void GameOpen()
         {
             windowSize.SetConsoleWindowSizeToScreenSize();
-            Console.WriteLine("Welcome to a game of Simon Says! Please Press the Enter Key to start or H for help.");
-            
+            Console.WriteLine($"Welcome to a game of Simon Says! Please Press the {startGameKey.ToString()} to start or H for help.");
+
             while (true)
             {
                 var key = Console.ReadKey().Key;
@@ -36,13 +37,76 @@ namespace SimonSaysConsole
                 }
                 else if (key == startGameKey)
                 {
+                    //TODO: Put the code into their own functions
+                    while (true)
+                    {
+                        Console.Write("\rHow many rounds would you like to play(Minium 10 Rounds): ");
+                        try
+                        {
+                            var maxiumPlayerRounds = Convert.ToInt32(Console.ReadLine());
+                            if (maxiumPlayerRounds < 10)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("It seems that you are below the minimum rounds allowed. Try again!");
+                                Console.WriteLine();
+                                Console.ResetColor();
+                                continue;
+                            }
+                            else
+                            {
+                                maxRounds = maxiumPlayerRounds;
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("Whoops that wasn't a number...\n");
+                            Console.ResetColor();
+                            continue;
+                        }
+                        while (true)
+                        {
+                            /*******WARNING FOR DIFFICULTY*******/
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Difficulty setting isn't final. Anything other then Easy will work " +
+                                "but will may be too difficult.");
+                            Console.ResetColor();
+                            /***********************************/
+                            Console.Write("Difficulty([E]asy/[M]edium/[H]ard): ");
+                            var userDifficulty = Console.ReadLine();
+                            difficulty = userDifficulty.ToUpper();
+                            if (difficulty == "EASY" || difficulty == "E")
+                            {
+                                Console.WriteLine("Easy difficulty was chosen");
+                                break;
+                            }
+                            else if (difficulty == "MEDIUM" || difficulty == "M")
+                            {
+                                Console.WriteLine("Medium Difficulty was chosen");
+                                break;
+                            }
+                            else if (difficulty == "HARD" || difficulty == "H")
+                            {
+                                Console.WriteLine("Hard Difficulty was chosen");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Please input a difficulty\n");
+                                continue;
+                            }
+                            //Console.ReadKey();
+                            //break;
+                        }
+                        break;
+                    }
                     break;
                 }
                 else
                 {
-                    Console.Write("\rWas the Enter key pressed?");
+                    Console.WriteLine($"\rWas the {startGameKey.ToString()} pressed?");
                 }
-
             }
             StartGame();
         }
@@ -55,7 +119,7 @@ namespace SimonSaysConsole
             Console.ResetColor();
             Console.Clear();
             player.GetInputAndDisplay();
-            CheckAnswers();            
+            CheckAnswers();
         }
 
         private void NextRound()
@@ -94,6 +158,7 @@ namespace SimonSaysConsole
             Console.Clear();
             player.ClearAnswers();
             colors.ClearColors();
+            currentRound = 1;
             GameOpen();
         }
 
