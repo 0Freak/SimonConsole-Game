@@ -28,10 +28,22 @@ namespace SimonSaysConsole
 
         public int ChoseColor()
         {
-
-            int pickedColor = colorPicker.Next(0, 4);
-
-            return pickedColor;
+            int pickedColor;
+            if (Game.difficulty == "EASY" || Game.difficulty == "E")
+            {
+                pickedColor = colorPicker.Next(0, 4);
+                return pickedColor;
+            }
+            else if (Game.difficulty == "MEDIUM" || Game.difficulty == "M")
+            {
+                pickedColor = colorPicker.Next(0, 5);
+                return pickedColor;
+            }
+            else
+            {
+                pickedColor = colorPicker.Next(0, 6);
+                return pickedColor;
+            }            
         }
 
         public void SaveColor()
@@ -48,22 +60,32 @@ namespace SimonSaysConsole
                 {
                     case 0:
                         {
-                            ShowColor(ConsoleColor.Green);
+                            ShowColor(ConsoleColor.Blue);
                             continue;
                         }
                     case 1:
                         {
-                            ShowColor(ConsoleColor.Red);
+                            ShowColor(ConsoleColor.Green);
                             continue;
                         }
                     case 2:
                         {
-                            ShowColor(ConsoleColor.Yellow);
+                            ShowColor(ConsoleColor.Red);
                             continue;
                         }
                     case 3:
                         {
-                            ShowColor(ConsoleColor.Blue);
+                            ShowColor(ConsoleColor.Yellow);
+                            continue;
+                        }
+                    case 4:
+                        {
+                            ShowColor(ConsoleColor.Magenta);
+                            continue;
+                        }
+                    case 5:
+                        {
+                            ShowColor(ConsoleColor.White);
                             continue;
                         }
                     default:
@@ -99,11 +121,11 @@ namespace SimonSaysConsole
             }
             else if (gameDifficulty == "MEDIUM" || gameDifficulty == "M")
             {
-                Thread.Sleep(timeInMiliseconds / 2);
+                Thread.Sleep(timeInMiliseconds /*/ 2*/);
             }
             else if (gameDifficulty == "HARD" || gameDifficulty == "H")
             {
-                Thread.Sleep(timeInMiliseconds / 3);
+                Thread.Sleep(timeInMiliseconds /*/ 3*/);
             }
         }
     }

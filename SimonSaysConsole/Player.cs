@@ -26,12 +26,27 @@ namespace SimonSaysConsole
                 Console.Write($"\rColour {index + 1}: {colorPicked}\n");
             }
         }
-
+        
         private void StoreKeyInput(int playerPickedNumber)
         {
-            if (playerPickedNumber == 4)
+            if (playerPickedNumber == 6 && (Game.difficulty == "EASY" || Game.difficulty == "E"))
             {
-                Console.WriteLine(" is Not Valid Input. Keys are G = Green, R = Red, Y = Yellow, B = Blue");
+                Console.WriteLine($" is Not Valid Input. Keys are {Game.colorBlue} = Blue, {Game.colorGreen} = Green," +
+                                  $" {Game.colorRed} = Red, {Game.colorYellow} = Yellow");
+                StoreKeyInput(KeyPress());
+            }
+            else if (playerPickedNumber == 6 && (Game.difficulty == "MEDIUM" || Game.difficulty == "M"))
+            {
+                Console.WriteLine($" is Not Valid Input. Keys are {Game.colorBlue} = Blue, {Game.colorGreen} = Green," +
+                                  $" {Game.colorMagenta} = Magenta, {Game.colorRed} = Red," +
+                                  $" {Game.colorYellow} = Yellow");
+                StoreKeyInput(KeyPress());
+            }
+            else if (playerPickedNumber == 6 && (Game.difficulty == "HARD" || Game.difficulty == "H"))
+            {
+                Console.WriteLine($" is Not Valid Input. Keys are {Game.colorBlue} = Blue, {Game.colorGreen} = Green," +
+                                  $" {Game.colorMagenta} = Magenta, {Game.colorRed} = Red," +
+                                  $" {Game.colorYellow} = Yellow , {Game.colorWhite} = White");
                 StoreKeyInput(KeyPress());
             }
             else
@@ -44,32 +59,110 @@ namespace SimonSaysConsole
         {
             var playerKeyInput = Console.ReadKey();
 
-            switch (playerKeyInput.Key)
+            if (Game.difficulty == "EASY" || Game.difficulty == "E")
             {
-                case ConsoleKey.G:
-                    {
-                        colorPicked = "GREEN";
-                        return 0;
-                    }
-                case ConsoleKey.R:
-                    {
-                        colorPicked = "RED";
-                        return 1;
-                    }
-                case ConsoleKey.Y:
-                    {
-                        colorPicked = "YELLOW";
-                        return 2;
-                    }
-                case ConsoleKey.B:
-                    {
-                        colorPicked = "BLUE";
-                        return 3;
-                    }
-                default:
-                    {
-                        return 4;
-                    }
+                switch (playerKeyInput.Key)
+                {
+                    case ConsoleKey.B:
+                        {
+                            colorPicked = "BLUE";
+                            return 0;
+                        }
+                    case ConsoleKey.G:
+                        {
+                            colorPicked = "GREEN";
+                            return 1;
+                        }
+                    case ConsoleKey.R:
+                        {
+                            colorPicked = "RED";
+                            return 2;
+                        }
+                    case ConsoleKey.Y:
+                        {
+                            colorPicked = "YELLOW";
+                            return 3;
+                        }
+                    default:
+                        {
+                            return 6;
+                        }
+                }
+            }
+            else if (Game.difficulty == "MEDIUM" || Game.difficulty == "M")
+            {
+                switch (playerKeyInput.Key)
+                {
+                    case ConsoleKey.A:
+                        {
+                            colorPicked = "BLUE";
+                            return 0;
+                        }
+                    case ConsoleKey.S:
+                        {
+                            colorPicked = "GREEN";
+                            return 1;
+                        }
+                    case ConsoleKey.D:
+                        {
+                            colorPicked = "RED";
+                            return 2;
+                        }
+                    case ConsoleKey.F:
+                        {
+                            colorPicked = "YELLOW";
+                            return 3;
+                        }
+                    case ConsoleKey.V:
+                        {
+                            colorPicked = "MAGENTA";
+                            return 4;
+                        }
+                    default:
+                        {
+                            return 6;
+                        }
+                }
+            }
+            else
+            {
+                switch (playerKeyInput.Key)
+                {
+                    case ConsoleKey.A:
+                        {
+                            colorPicked = "BLUE";
+                            return 0;
+                        }
+                    case ConsoleKey.S:
+                        {
+                            colorPicked = "GREEN";
+                            return 1;
+                        }
+                    case ConsoleKey.D:
+                        {
+                            colorPicked = "RED";
+                            return 2;
+                        }
+                    case ConsoleKey.F:
+                        {
+                            colorPicked = "YELLOW";
+                            return 3;
+                        }
+                    case ConsoleKey.V:
+                        {
+                            colorPicked = "MAGENTA";
+                            return 4;
+                        }
+                    case ConsoleKey.W:
+                        {
+                            colorPicked = "WHITE";
+                            return 5;
+                        }
+                    default:
+                        {
+                            return 6;
+                        }
+                }
             }
         }
 

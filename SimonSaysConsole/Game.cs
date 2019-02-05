@@ -8,8 +8,15 @@ namespace SimonSaysConsole
         Player player;
         ConsoleWindowSize windowSize;
 
-        private readonly ConsoleKey startGameKey = ConsoleKey.F5;
         private int maxRounds = 1;
+
+        public static readonly ConsoleKey startGameKey = ConsoleKey.F5;
+        public static ConsoleKey colorBlue = ConsoleKey.B;
+        public static ConsoleKey colorGreen = ConsoleKey.G;
+        public static ConsoleKey colorMagenta = ConsoleKey.M;
+        public static ConsoleKey colorRed = ConsoleKey.R;
+        public static ConsoleKey colorYellow = ConsoleKey.Y;
+        public static ConsoleKey colorWhite = ConsoleKey.W;
 
         public static string difficulty = "EASY";
         public int currentRound = 1;
@@ -67,27 +74,42 @@ namespace SimonSaysConsole
                         }
                         while (true)
                         {
-                            /*******WARNING FOR DIFFICULTY*******/
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Difficulty setting isn't final. Anything other then Easy will work " +
-                                "but will may be too difficult.");
-                            Console.ResetColor();
-                            /***********************************/
+                            ///*******WARNING FOR DIFFICULTY*******/
+                            //Console.ForegroundColor = ConsoleColor.Red;
+                            //Console.WriteLine("Difficulty setting isn't final. Anything other then Easy will work " +
+                            //    "but will may be too difficult.");
+                            //Console.ResetColor();
+                            ///***********************************/
                             Console.Write("Difficulty([E]asy/[M]edium/[H]ard): ");
                             var userDifficulty = Console.ReadLine();
                             difficulty = userDifficulty.ToUpper();
                             if (difficulty == "EASY" || difficulty == "E")
                             {
+                                colorBlue = ConsoleKey.B;
+                                colorGreen = ConsoleKey.G;
+                                colorRed = ConsoleKey.R;
+                                colorYellow = ConsoleKey.Y;
                                 Console.WriteLine("Easy difficulty was chosen");
                                 break;
                             }
                             else if (difficulty == "MEDIUM" || difficulty == "M")
                             {
+                                colorBlue = ConsoleKey.A;
+                                colorGreen = ConsoleKey.S;
+                                colorMagenta = ConsoleKey.V;
+                                colorRed = ConsoleKey.D;
+                                colorYellow = ConsoleKey.F;
                                 Console.WriteLine("Medium Difficulty was chosen");
                                 break;
                             }
                             else if (difficulty == "HARD" || difficulty == "H")
                             {
+                                colorBlue = ConsoleKey.A;
+                                colorGreen = ConsoleKey.S;
+                                colorMagenta = ConsoleKey.V;
+                                colorRed = ConsoleKey.D;
+                                colorYellow = ConsoleKey.F;
+                                colorWhite = ConsoleKey.W;
                                 Console.WriteLine("Hard Difficulty was chosen");
                                 break;
                             }
@@ -105,7 +127,7 @@ namespace SimonSaysConsole
                 }
                 else
                 {
-                    Console.WriteLine($"\rWas the {startGameKey.ToString()} pressed?");
+                    Console.Write($"\rWas the {startGameKey.ToString()} pressed?");
                 }
             }
             StartGame();
@@ -165,7 +187,18 @@ namespace SimonSaysConsole
         public void ShowResults()
         {
             Console.WriteLine("Legend:");
-            Console.WriteLine("Green = 0; Red = 1; Yellow = 2; Blue = 3\n");
+            if (difficulty == "EASY" || difficulty == "E")
+            {
+                Console.WriteLine("Blue = 0; Green = 1; Red = 2 Yellow = 3;\n");
+            }
+            else if (difficulty == "MEDIUM" || difficulty == "M")
+            {
+                Console.WriteLine("Blue = 0; Green = 1; Red = 2; Yellow = 3; Magenta = 4;\n");
+            }
+            else
+            {
+                Console.WriteLine("Blue = 0; Green = 1; Red = 2; Yellow = 3; Magenta = 4; White = 5\n");
+            }
             Console.WriteLine("Actual Answers | Your Answers");
             for (int i = 0; i < Colors.ColorSequence.Count; i++)
             {
