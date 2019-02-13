@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace SimonSaysConsole
 {
@@ -44,7 +45,6 @@ namespace SimonSaysConsole
                 }
                 else if (key == startGameKey)
                 {
-                    //TODO: Put the code into their own functions
                     while (true)
                     {
                         Console.Write("\rHow many rounds would you like to play(Minium 10 Rounds): ");
@@ -74,12 +74,6 @@ namespace SimonSaysConsole
                         }
                         while (true)
                         {
-                            ///*******WARNING FOR DIFFICULTY*******/
-                            //Console.ForegroundColor = ConsoleColor.Red;
-                            //Console.WriteLine("Difficulty setting isn't final. Anything other then Easy will work " +
-                            //    "but will may be too difficult.");
-                            //Console.ResetColor();
-                            ///***********************************/
                             Console.Write("Difficulty([E]asy/[M]edium/[H]ard): ");
                             var userDifficulty = Console.ReadLine();
                             difficulty = userDifficulty.ToUpper();
@@ -115,7 +109,9 @@ namespace SimonSaysConsole
                             }
                             else
                             {
+                                Console.ForegroundColor = ConsoleColor.Yellow;
                                 Console.WriteLine("Please input a difficulty\n");
+                                Console.ResetColor();
                                 continue;
                             }
                             //Console.ReadKey();
@@ -146,7 +142,7 @@ namespace SimonSaysConsole
 
         private void NextRound()
         {
-            if (currentRound <= maxRounds)
+            if (currentRound < maxRounds)
             {
                 currentRound++;
                 StartGame();

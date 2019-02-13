@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 
@@ -11,11 +12,11 @@ namespace SimonSaysConsole
 
         public static List<int> ColorSequence = new List<int>();
 
-        private Random colorPicker;
+        private Random _colorPicker;
 
         public Colors()
         {
-            colorPicker = new Random();
+            _colorPicker = new Random();
         }
 
         public void GetColors(int amount)
@@ -31,19 +32,19 @@ namespace SimonSaysConsole
             int pickedColor;
             if (Game.difficulty == "EASY" || Game.difficulty == "E")
             {
-                pickedColor = colorPicker.Next(0, 4);
+                pickedColor = _colorPicker.Next(0, 4);
                 return pickedColor;
             }
             else if (Game.difficulty == "MEDIUM" || Game.difficulty == "M")
             {
-                pickedColor = colorPicker.Next(0, 5);
+                pickedColor = _colorPicker.Next(0, 5);
                 return pickedColor;
             }
             else
             {
-                pickedColor = colorPicker.Next(0, 6);
+                pickedColor = _colorPicker.Next(0, 6);
                 return pickedColor;
-            }            
+            }
         }
 
         public void SaveColor()
@@ -53,6 +54,7 @@ namespace SimonSaysConsole
 
         public void ShowPickedColors()
         {
+            var sounds = new SoundFx();
             foreach (var color in ColorSequence)
             {
                 PauseScreen();
@@ -60,31 +62,37 @@ namespace SimonSaysConsole
                 {
                     case 0:
                         {
+                            sounds.PlaySound("E5.wav");
                             ShowColor(ConsoleColor.Blue);
                             continue;
                         }
                     case 1:
                         {
+                            sounds.PlaySound("C6.wav");
                             ShowColor(ConsoleColor.Green);
                             continue;
                         }
                     case 2:
                         {
+                            sounds.PlaySound("A5.wav");
                             ShowColor(ConsoleColor.Red);
                             continue;
                         }
                     case 3:
                         {
+                            sounds.PlaySound("G5.wav");
                             ShowColor(ConsoleColor.Yellow);
                             continue;
                         }
                     case 4:
                         {
+                            sounds.PlaySound("D5.wav");
                             ShowColor(ConsoleColor.Magenta);
                             continue;
                         }
                     case 5:
                         {
+                            sounds.PlaySound("C5.wav");
                             ShowColor(ConsoleColor.White);
                             continue;
                         }
@@ -110,23 +118,7 @@ namespace SimonSaysConsole
         {
             Console.BackgroundColor = color;
             Console.Clear();
-            SleepTime(Game.difficulty, 1000);
-        }
-
-        private void SleepTime(string gameDifficulty, int timeInMiliseconds)
-        {
-            if (gameDifficulty == "EASY" || gameDifficulty == "E")
-            {
-                Thread.Sleep(timeInMiliseconds);
-            }
-            else if (gameDifficulty == "MEDIUM" || gameDifficulty == "M")
-            {
-                Thread.Sleep(timeInMiliseconds /*/ 2*/);
-            }
-            else if (gameDifficulty == "HARD" || gameDifficulty == "H")
-            {
-                Thread.Sleep(timeInMiliseconds /*/ 3*/);
-            }
+            Thread.Sleep(1000);
         }
     }
 }
