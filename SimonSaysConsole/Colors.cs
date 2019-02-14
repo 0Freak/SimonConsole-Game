@@ -52,9 +52,9 @@ namespace SimonSaysConsole
             ColorSequence.Add(ChoseColor());
         }
 
-        public void ShowPickedColors()
+        public void ShowPickedColors(int wait)
         {
-            var sounds = new SoundFx();
+            var sounds = new Sounds();
             foreach (var color in ColorSequence)
             {
                 PauseScreen();

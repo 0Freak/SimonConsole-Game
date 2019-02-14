@@ -7,6 +7,7 @@ namespace SimonSaysConsole
     {
         Colors colors;
         Player player;
+        Sounds sounds;
         ConsoleWindowSize windowSize;
 
         private int maxRounds = 1;
@@ -27,6 +28,7 @@ namespace SimonSaysConsole
         {
             colors = new Colors();
             player = new Player();
+            sounds = new Sounds();
             windowSize = new ConsoleWindowSize();
         }
 
@@ -34,6 +36,7 @@ namespace SimonSaysConsole
         public void GameOpen()
         {
             windowSize.SetConsoleWindowSizeToScreenSize();
+            sounds.PlaySong("play");
             Console.WriteLine($"Welcome to a game of Simon Says! Please Press the {startGameKey.ToString()} to start or H for help.");
 
             while (true)
@@ -84,6 +87,7 @@ namespace SimonSaysConsole
                                 colorRed = ConsoleKey.R;
                                 colorYellow = ConsoleKey.Y;
                                 Console.WriteLine("Easy difficulty was chosen");
+                                sounds.PlaySong("stop");
                                 break;
                             }
                             else if (difficulty == "MEDIUM" || difficulty == "M")
@@ -94,6 +98,7 @@ namespace SimonSaysConsole
                                 colorRed = ConsoleKey.D;
                                 colorYellow = ConsoleKey.F;
                                 Console.WriteLine("Medium Difficulty was chosen");
+                                sounds.PlaySong("stop");
                                 break;
                             }
                             else if (difficulty == "HARD" || difficulty == "H")
@@ -105,6 +110,7 @@ namespace SimonSaysConsole
                                 colorYellow = ConsoleKey.F;
                                 colorWhite = ConsoleKey.W;
                                 Console.WriteLine("Hard Difficulty was chosen");
+                                sounds.PlaySong("stop");
                                 break;
                             }
                             else
@@ -114,8 +120,6 @@ namespace SimonSaysConsole
                                 Console.ResetColor();
                                 continue;
                             }
-                            //Console.ReadKey();
-                            //break;
                         }
                         break;
                     }
@@ -133,7 +137,7 @@ namespace SimonSaysConsole
         {
             Console.Clear();
             colors.GetColors(choseAmountOfColorsForRound);
-            colors.ShowPickedColors();
+            colors.ShowPickedColors(1000);
             Console.ResetColor();
             Console.Clear();
             player.GetInputAndDisplay();
@@ -149,7 +153,7 @@ namespace SimonSaysConsole
             }
             else if (currentRound >= maxRounds)
             {
-                WonRound();
+                WonGame();
             }
         }
 
@@ -170,7 +174,7 @@ namespace SimonSaysConsole
         public void Lose()
         {
             Console.WriteLine("\nGame Lost\n");
-            ShowResults();
+            ShowResults(false);
             Console.WriteLine("\nPress any button to play again...");
             Console.ReadKey();
             Console.Clear();
@@ -180,7 +184,7 @@ namespace SimonSaysConsole
             GameOpen();
         }
 
-        public void ShowResults()
+        public void ShowResults(bool hasntWon)
         {
             Console.WriteLine("Legend:");
             if (difficulty == "EASY" || difficulty == "E")
@@ -212,11 +216,41 @@ namespace SimonSaysConsole
             }
         }
 
-        public void WonRound()
+    public void WonRound()
         {
-            Console.WriteLine($"\nRound {currentRound} was won");
-            Console.WriteLine("Press a key to go to the next round!");
-            Console.ReadKey();
+            Console.WriteLine($"\nRound {currentRound} was won.");
+            if (currentRound == maxRounds)
+            {
+                WonGame();
+            }
+            else
+            {
+                Console.WriteLine("Press a key to go to the next round!");
+                Console.ReadKey();
+            }
+        }
+
+        public void WonGame()
+        {
+            Console.Clear();
+            Console.WriteLine("Congratulations you have won the game!");
+            Console.WriteLine();
+            Console.WriteLine($"Press the {ConsoleKey.Enter} key to go back to the main window.");
+            while (true)
+            {
+                var winnersKey = Console.ReadKey().Key;
+                if (winnersKey == ConsoleKey.Enter)
+                {
+                    Console.Clear();
+                    GameOpen();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write("\rPlease press the Enter key. ");
+                    Console.ResetColor();
+                }
+            }
         }
     }
 }
