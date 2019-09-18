@@ -242,6 +242,7 @@ namespace SimonSaysConsole
                     Console.Clear();
                     player.ClearAnswers();
                     colors.ClearColors();
+                    currentRound = 1;
                     GameOpen();
                 }
                 else
