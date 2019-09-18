@@ -5,10 +5,10 @@ namespace SimonSaysConsole
 {
     internal class Game
     {
-        Colors colors;
-        Player player;
-        Sounds sounds;
-        ConsoleWindowSize windowSize;
+        readonly Colors colors;
+        readonly Player player;
+        readonly Sounds sounds;
+        readonly ConsoleWindowSize windowSize;
 
         private int maxRounds = 1;
 
@@ -87,7 +87,6 @@ namespace SimonSaysConsole
                                 colorRed = ConsoleKey.R;
                                 colorYellow = ConsoleKey.Y;
                                 Console.WriteLine("Easy difficulty was chosen");
-                                sounds.PlaySong("stop");
                                 break;
                             }
                             else if (difficulty == "MEDIUM" || difficulty == "M")
@@ -98,7 +97,6 @@ namespace SimonSaysConsole
                                 colorRed = ConsoleKey.D;
                                 colorYellow = ConsoleKey.F;
                                 Console.WriteLine("Medium Difficulty was chosen");
-                                sounds.PlaySong("stop");
                                 break;
                             }
                             else if (difficulty == "HARD" || difficulty == "H")
@@ -110,7 +108,6 @@ namespace SimonSaysConsole
                                 colorYellow = ConsoleKey.F;
                                 colorWhite = ConsoleKey.W;
                                 Console.WriteLine("Hard Difficulty was chosen");
-                                sounds.PlaySong("stop");
                                 break;
                             }
                             else
@@ -121,6 +118,7 @@ namespace SimonSaysConsole
                                 continue;
                             }
                         }
+                        sounds.PlaySong("stop");
                         break;
                     }
                     break;
@@ -137,7 +135,7 @@ namespace SimonSaysConsole
         {
             Console.Clear();
             colors.GetColors(choseAmountOfColorsForRound);
-            colors.ShowPickedColors(1000);
+            colors.ShowPickedColors();
             Console.ResetColor();
             Console.Clear();
             player.GetInputAndDisplay();
@@ -174,7 +172,7 @@ namespace SimonSaysConsole
         public void Lose()
         {
             Console.WriteLine("\nGame Lost\n");
-            ShowResults(false);
+            ShowResults();
             Console.WriteLine("\nPress any button to play again...");
             Console.ReadKey();
             Console.Clear();
@@ -184,7 +182,7 @@ namespace SimonSaysConsole
             GameOpen();
         }
 
-        public void ShowResults(bool hasntWon)
+        public void ShowResults()
         {
             Console.WriteLine("Legend:");
             if (difficulty == "EASY" || difficulty == "E")
@@ -242,6 +240,8 @@ namespace SimonSaysConsole
                 if (winnersKey == ConsoleKey.Enter)
                 {
                     Console.Clear();
+                    player.ClearAnswers();
+                    colors.ClearColors();
                     GameOpen();
                 }
                 else

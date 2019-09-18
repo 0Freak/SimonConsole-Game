@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Media;
-using System.Text;
 using System.Threading;
 
 namespace SimonSaysConsole
@@ -12,7 +9,7 @@ namespace SimonSaysConsole
 
         public static List<int> ColorSequence = new List<int>();
 
-        private Random _colorPicker;
+        private readonly Random _colorPicker;
 
         public Colors()
         {
@@ -52,7 +49,7 @@ namespace SimonSaysConsole
             ColorSequence.Add(ChoseColor());
         }
 
-        public void ShowPickedColors(int wait)
+        public void ShowPickedColors()
         {
             var sounds = new Sounds();
             foreach (var color in ColorSequence)
