@@ -37,7 +37,7 @@ namespace SimonSaysConsole
         {
             windowSize.SetConsoleWindowSizeToScreenSize();
             sounds.PlaySong("play");
-            Console.WriteLine($"Welcome to a game of Simon Says! Please Press the {startGameKey.ToString()} to start or H for help.");
+            Console.WriteLine($"Welcome to a game of Simon Says! Please Press the {startGameKey} to start or H for help.");
 
             while (true)
             {
@@ -125,7 +125,7 @@ namespace SimonSaysConsole
                 }
                 else
                 {
-                    Console.Write($"\rWas the {startGameKey.ToString()} pressed?");
+                    Console.Write($"\rWas the {startGameKey} pressed?");
                 }
             }
             StartGame();
@@ -138,8 +138,24 @@ namespace SimonSaysConsole
             colors.ShowPickedColors();
             Console.ResetColor();
             Console.Clear();
-            player.GetInputAndDisplay();
-            CheckAnswers();
+            Console.WriteLine($"Anti-Cheat Measure please press the INSERT Key on your keyboard to process input.");
+
+            //Makes Sure player can't cheat by waiting for the player to press a key before getting their input
+            while (true)
+            {
+                var key = Console.ReadKey().Key;
+                if (key == ConsoleKey.Insert)
+                {
+                    Console.Clear();
+                    player.GetInputAndDisplay();
+                    CheckAnswers();
+                    break;
+                }
+                else
+                {
+                    Console.Write("\rDid you press the INSERT Key?");
+                }
+            }
         }
 
         private void NextRound()
@@ -214,7 +230,7 @@ namespace SimonSaysConsole
             }
         }
 
-    public void WonRound()
+        public void WonRound()
         {
             Console.WriteLine($"\nRound {currentRound} was won.");
             if (currentRound == maxRounds)
