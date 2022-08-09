@@ -13,16 +13,16 @@ namespace SimonSaysConsole
         private int maxRounds = 1;
 
         public static readonly ConsoleKey startGameKey = ConsoleKey.F5;
-        public static ConsoleKey colorBlue = ConsoleKey.B;
-        public static ConsoleKey colorGreen = ConsoleKey.G;
+        public static ConsoleKey keyColorBlue = ConsoleKey.B;
+        public static ConsoleKey keyColorGreen = ConsoleKey.G;
         public static ConsoleKey colorMagenta = ConsoleKey.M;
-        public static ConsoleKey colorRed = ConsoleKey.R;
-        public static ConsoleKey colorYellow = ConsoleKey.Y;
+        public static ConsoleKey keyColorRed = ConsoleKey.R;
+        public static ConsoleKey keyColorYellow = ConsoleKey.Y;
         public static ConsoleKey colorWhite = ConsoleKey.W;
 
         public static string difficulty = "EASY";
         public int currentRound = 1;
-        public int choseAmountOfColorsForRound = 1;
+        public int getNextColor = 1;
 
         public Game()
         {
@@ -82,30 +82,30 @@ namespace SimonSaysConsole
                             difficulty = userDifficulty.ToUpper();
                             if (difficulty == "EASY" || difficulty == "E")
                             {
-                                colorBlue = ConsoleKey.B;
-                                colorGreen = ConsoleKey.G;
-                                colorRed = ConsoleKey.R;
-                                colorYellow = ConsoleKey.Y;
+                                keyColorBlue = ConsoleKey.B;
+                                keyColorGreen = ConsoleKey.G;
+                                keyColorRed = ConsoleKey.R;
+                                keyColorYellow = ConsoleKey.Y;
                                 Console.WriteLine("Easy difficulty was chosen");
                                 break;
                             }
                             else if (difficulty == "MEDIUM" || difficulty == "M")
                             {
-                                colorBlue = ConsoleKey.A;
-                                colorGreen = ConsoleKey.S;
+                                keyColorBlue = ConsoleKey.A;
+                                keyColorGreen = ConsoleKey.S;
                                 colorMagenta = ConsoleKey.V;
-                                colorRed = ConsoleKey.D;
-                                colorYellow = ConsoleKey.F;
+                                keyColorRed = ConsoleKey.D;
+                                keyColorYellow = ConsoleKey.F;
                                 Console.WriteLine("Medium Difficulty was chosen");
                                 break;
                             }
                             else if (difficulty == "HARD" || difficulty == "H")
                             {
-                                colorBlue = ConsoleKey.A;
-                                colorGreen = ConsoleKey.S;
+                                keyColorBlue = ConsoleKey.A;
+                                keyColorGreen = ConsoleKey.S;
                                 colorMagenta = ConsoleKey.V;
-                                colorRed = ConsoleKey.D;
-                                colorYellow = ConsoleKey.F;
+                                keyColorRed = ConsoleKey.D;
+                                keyColorYellow = ConsoleKey.F;
                                 colorWhite = ConsoleKey.W;
                                 Console.WriteLine("Hard Difficulty was chosen");
                                 break;
@@ -134,28 +134,19 @@ namespace SimonSaysConsole
         public void StartGame()
         {
             Console.Clear();
-            colors.GetColors(choseAmountOfColorsForRound);
+            colors.GetColors(getNextColor);
             colors.ShowPickedColors();
             Console.ResetColor();
             Console.Clear();
-            Console.WriteLine($"Anti-Cheat Measure please press the INSERT Key on your keyboard to process input.");
 
-            //Makes Sure player can't cheat by waiting for the player to press a key before getting their input
-            while (true)
+            //Ignore any key input until color are done showing.
+            while (Console.KeyAvailable)
             {
-                var key = Console.ReadKey().Key;
-                if (key == ConsoleKey.Insert)
-                {
-                    Console.Clear();
-                    player.GetInputAndDisplay();
-                    CheckAnswers();
-                    break;
-                }
-                else
-                {
-                    Console.Write("\rDid you press the INSERT Key?");
-                }
+                Console.ReadKey(true);
             }
+
+            player.GetInputAndDisplay();
+            CheckAnswers();
         }
 
         private void NextRound()

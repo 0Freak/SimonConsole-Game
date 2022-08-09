@@ -21,7 +21,7 @@ namespace SimonSaysConsole
             Console.WriteLine("Input the colours that were seen:\n");
             for (var index = 0; index < Colors.ColorSequence.Count; index++)
             {
-                Console.Write("Colour {0}: ", index + 1);
+                Console.Write($"Colour {index + 1}: ");
                 StoreKeyInput(KeyPress());
                 Console.Write($"\rColour {index + 1}: {colorPicked}\n");
             }
@@ -31,22 +31,22 @@ namespace SimonSaysConsole
         {
             if (playerPickedNumber == 6 && (Game.difficulty == "EASY" || Game.difficulty == "E"))
             {
-                Console.WriteLine($" is Not Valid Input. Keys are {Game.colorBlue} = Blue, {Game.colorGreen} = Green," +
-                                  $" {Game.colorRed} = Red, {Game.colorYellow} = Yellow");
+                Console.WriteLine($" is Not Valid Input. Keys are {Game.keyColorBlue} = Blue, {Game.keyColorGreen} = Green," +
+                                  $" {Game.keyColorRed} = Red, {Game.keyColorYellow} = Yellow");
                 StoreKeyInput(KeyPress());
             }
             else if (playerPickedNumber == 6 && (Game.difficulty == "MEDIUM" || Game.difficulty == "M"))
             {
-                Console.WriteLine($" is Not Valid Input. Keys are {Game.colorBlue} = Blue, {Game.colorGreen} = Green," +
-                                  $" {Game.colorMagenta} = Magenta, {Game.colorRed} = Red," +
-                                  $" {Game.colorYellow} = Yellow");
+                Console.WriteLine($" is Not Valid Input. Keys are {Game.keyColorBlue} = Blue, {Game.keyColorGreen} = Green," +
+                                  $" {Game.colorMagenta} = Magenta, {Game.keyColorRed} = Red," +
+                                  $" {Game.keyColorYellow} = Yellow");
                 StoreKeyInput(KeyPress());
             }
             else if (playerPickedNumber == 6 && (Game.difficulty == "HARD" || Game.difficulty == "H"))
             {
-                Console.WriteLine($" is Not Valid Input. Keys are {Game.colorBlue} = Blue, {Game.colorGreen} = Green," +
-                                  $" {Game.colorMagenta} = Magenta, {Game.colorRed} = Red," +
-                                  $" {Game.colorYellow} = Yellow , {Game.colorWhite} = White");
+                Console.WriteLine($" is Not Valid Input. Keys are {Game.keyColorBlue} = Blue, {Game.keyColorGreen} = Green," +
+                                  $" {Game.colorMagenta} = Magenta, {Game.keyColorRed} = Red," +
+                                  $" {Game.keyColorYellow} = Yellow , {Game.colorWhite} = White");
                 StoreKeyInput(KeyPress());
             }
             else
